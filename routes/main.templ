@@ -1,0 +1,23 @@
+package routes
+
+import "github.com/ituoga/toolbox/hotreload"
+
+templ Main() {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="utf-8"/>
+			<title>DataStar Examples</title>
+			<script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+			<link rel="stylesheet" href="/static/output.css">
+
+		</head>
+		<body>
+			<section class="container ">
+				{ children... }
+				@templ.Raw(hotreload.HTML)
+			</section>
+		</body>
+	</html>
+}

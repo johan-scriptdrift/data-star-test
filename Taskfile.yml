@@ -1,0 +1,66 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+
+  tools:
+    method: none
+    desc: install tools
+    cmds:
+      - go install github.com/pressly/goose/v3/cmd/goose@latest
+
+  templ:
+    deps:
+      - kill
+    env:
+      TEMPL_EXPERIMENT: rawgo
+    sources:
+      - "**/*.templ"
+    generates:
+      - "**/*_templ.go"
+    cmds:
+      - templ generate
+
+  kill:
+    method: none
+    cmds:
+      - echo "Killing all processes"
+      - pkill -f ./site || true
+
+  tailwind:
+    method: none
+    desc: build tailwind css
+    sources:
+      - "static/**/*"
+    generates:
+      - static/output.css
+    cmds:
+      - tailwindcss -i ./static/app.css -o ./static/output.css --optimize
+      # - tailwindcss -i ./static/app.css -o ./static/output.css --minify
+
+  run:
+    method: none
+    desc: build the site
+    deps:
+      # - npm
+      - templ
+      - tailwind
+    sources:
+      - "**/*.go"
+      - "**/*.md"
+      - "static/**/*"
+      - "locales/**/*"
+    generates:
+      - ./site
+    cmds:
+      - go mod tidy
+      - go build ./main.go
+      - ./main
