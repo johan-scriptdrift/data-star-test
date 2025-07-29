@@ -4,6 +4,12 @@ import "github.com/johan-scriptdrift/data-star-test/routes"
 
 templ Index() {
     @routes.Main() {
-        <h1>Index Page!</h1>
+        <h1>Index Page</h1>
+        <p id="greeting">Hello World!</p>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-on-click="@get('/update-greeting')">Update Greeting</button>
     }
+}
+
+templ UpdateGreeting() {
+    <p id="greeting">Hello SSE!</p>
 }

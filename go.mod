@@ -12,6 +12,6 @@ require (
 	github.com/a-h/templ v0.3.924
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
-	github.com/starfederation/datastar-go v1.0.1 // indirect
+	github.com/starfederation/datastar-go v1.0.1
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 )

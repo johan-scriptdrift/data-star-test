@@ -76,6 +76,37 @@
   overflow: hidden;
 }
 
+.rounded {
+  border-radius: .25rem;
+}
+
+.bg-blue-500 {
+  background-color: var(--color-blue-500, oklch(62.3% .214 259.815));
+}
+
+.px-4 {
+  padding-inline: calc(var(--spacing, .25rem) * 4);
+}
+
+.py-2 {
+  padding-block: calc(var(--spacing, .25rem) * 2);
+}
+
+.font-bold {
+  --tw-font-weight: var(--font-weight-bold, 700);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.text-white {
+  color: var(--color-white, #fff);
+}
+
+@media (hover: hover) {
+  .hover\:bg-blue-700:hover {
+    background-color: var(--color-blue-700, oklch(48.8% .243 264.376));
+  }
+}
+
 h1 {
   margin-bottom: calc(var(--spacing, .25rem) * 4);
   font-size: var(--text-3xl, 1.875rem);
