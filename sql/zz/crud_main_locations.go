@@ -81,10 +81,10 @@ FROM locations
     return &ReadAllLocationsStmt{stmt: stmt}
 }
 
-func (ps *ReadAllLocationsStmt) Run() ([]*LocationModel, error) {
+func (ps *ReadAllLocationsStmt) Run() ([]LocationModel, error) {
     defer ps.stmt.Reset()
 
-    var models []*LocationModel
+    var models []LocationModel
     for {
         hasRow, err := ps.stmt.Step()
         if err != nil {
@@ -93,7 +93,7 @@ func (ps *ReadAllLocationsStmt) Run() ([]*LocationModel, error) {
             break
         }
 
-        m := &LocationModel{}
+        m := LocationModel{}
         
     m.Id =             ps.stmt.ColumnInt64(0)
 
@@ -111,7 +111,7 @@ func (ps *ReadAllLocationsStmt) Run() ([]*LocationModel, error) {
     return models, nil
 }
 
-func OnceReadAllLocations(tx *sqlite.Conn) ([]*LocationModel, error) {
+func OnceReadAllLocations(tx *sqlite.Conn) ([]LocationModel, error) {
     ps := ReadAllLocations(tx)
     return ps.Run()
 }

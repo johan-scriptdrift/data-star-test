@@ -6,6 +6,7 @@ require (
 	github.com/delaneyj/toolbelt v0.5.0
 	github.com/go-chi/chi/v5 v5.2.2
 	github.com/ituoga/toolbox v0.0.24
+	github.com/jaswdr/faker/v2 v2.6.1
 	github.com/rs/zerolog v1.34.0
 	golang.org/x/crypto v0.39.0
 	zombiezen.com/go/sqlite v1.4.2

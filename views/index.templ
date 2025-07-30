@@ -1,15 +1,36 @@
 package views
 
-import "github.com/johan-scriptdrift/data-star-test/routes"
+import (
+    "github.com/johan-scriptdrift/data-star-test/routes"
+    "github.com/johan-scriptdrift/data-star-test/sql/zz"
+)
 
-templ Index() {
+templ Index(locations []zz.LocationModel) {
     @routes.Main() {
         <h1>Index Page</h1>
         <p id="greeting">Hello World!</p>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-on-click="@get('/update-greeting')">Update Greeting</button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-on-click="@get('/locations')">Stream Locations</button>
+        <div>
+            @LocationsList(locations)
+        </div>
     }
 }
 
 templ UpdateGreeting(name string) {
     <p id="greeting">Hello { name }</p>
+}
+
+templ LocationsList(locations []zz.LocationModel) {
+    if len(locations) == 0 {
+        <p>No locations...</p>
+    }
+    <ul class="list-none">
+        for _, location := range locations {
+            <li>
+                <span>Latitude: { location.Lat }</span>
+                <span>Longitude: { location.Long }</span>
+            </li>
+        }
+    </ul>
 }

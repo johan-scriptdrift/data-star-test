@@ -1,10 +1,11 @@
 package sql
 
 import (
-	"embed"
 	"context"
+	"embed"
 	"fmt"
 	"github.com/delaneyj/toolbelt"
+	"github.com/jaswdr/faker/v2"
 	"github.com/johan-scriptdrift/data-star-test/sql/zz"
 	"golang.org/x/crypto/bcrypt"
 	"io"
@@ -87,7 +88,7 @@ func SeedDBIfEmpty(ctx context.Context, db *toolbelt.Database) error {
 	}
 
 	now := time.Now().UTC()
-	//fake := faker.NewWithSeedInt64(0)
+	fake := faker.NewWithSeedInt64(0)
 
 	return db.WriteTX(ctx, func(tx *sqlite.Conn) error {
 		userIds := make([]int64, 64)
@@ -109,6 +110,29 @@ func SeedDBIfEmpty(ctx context.Context, db *toolbelt.Database) error {
 		}); err != nil {
 			return fmt.Errorf("failed to create user: %w", err)
 		}
+
+		createLocationStmt := zz.CreateLocation(tx)
+
+		if err = createLocationStmt.Run(&zz.LocationModel{
+			Id:        1,
+			Lat:       37.7749,
+			Long:      -122.4194,
+			CreatedAt: now,
+		}); err != nil {
+			return fmt.Errorf("failed to create location: %w", err)
+		}
+
+		for i := 1; i < 64; i++ {
+			if err := createLocationStmt.Run(&zz.LocationModel{
+				Id:        toolbelt.NextID(),
+				Lat:       fake.Float64(4, -90, 90),
+				Long:      fake.Float64(4, -180, 180),
+				CreatedAt: now,
+			}); err != nil {
+				return fmt.Errorf("failed to create location: %w", err)
+			}
+		}
+
 		return nil
 	})
 }
