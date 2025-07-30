@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello World")
+	fmt.Println("Starting server...")
 
 	db, err := sql.SetupDB(context.Background(), "data", true)
 	if err != nil {
