@@ -14,6 +14,6 @@ RUN chmod +x main
 COPY static ./static
 COPY views ./views
 COPY sql ./sql
-COPY data ./data
+RUN mkdir ./data
 EXPOSE 8080
 CMD ["./main"]
